@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
+import ThemeProvider from "@/context/ThemeProvider";
 
 // FONTS
 const inter = Inter({
@@ -32,19 +33,19 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		// Provides active session and user context to Clerk's hooks
-		<ClerkProvider
-			appearance={{
-				elements: {
-					formButtonPrimary: "primary-gradient",
-					formActionLink: "primary-text-gradient hover:text-primary-500",
-				},
-			}}>
-			<html lang="en">
-				<body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-					{children}
-				</body>
-			</html>
-		</ClerkProvider>
+		<html lang="en">
+			<body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+				{/* Provides active session and user context to Clerk's hooks */}
+				<ClerkProvider
+					appearance={{
+						elements: {
+							formButtonPrimary: "primary-gradient",
+							formActionLink: "primary-text-gradient hover:text-primary-500",
+						},
+					}}>
+					<ThemeProvider>{children}</ThemeProvider>
+				</ClerkProvider>
+			</body>
+		</html>
 	);
 }
